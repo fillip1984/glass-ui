@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import { api } from "~/trpc/server";
 
 export default function DaylightWidget() {
-  const {} = api.weather.getDaylightInfo.useQuery({}); // Placeholder for actual data fetching
+  // const {} = api.weather.getDaylightInfo.useQuery({}); // Placeholder for actual data fetching
   return (
     <div className="glass rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Daylight Widget</h2>
