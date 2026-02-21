@@ -1,14 +1,13 @@
 import "server-only";
 
-import { headers } from "next/headers";
+import type { TRPCQueryOptions } from "@trpc/tanstack-react-query";
 import { cache } from "react";
-
+import { headers } from "next/headers";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import {
-  createTRPCOptionsProxy,
-  type TRPCQueryOptions,
-} from "@trpc/tanstack-react-query";
-import { appRouter, type AppRouter } from "~/server/api/root";
+import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
+
+import type { AppRouter } from "~/server/api/root";
+import { appRouter } from "~/server/api/root";
 import { createTRPCContext } from "~/server/api/trpc";
 import { createQueryClient } from "./query-client";
 

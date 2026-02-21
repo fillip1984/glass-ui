@@ -1,4 +1,3 @@
-import React from "react";
 import { FaHome, FaInfoCircle, FaPhone } from "react-icons/fa";
 
 export default function SideNav() {
