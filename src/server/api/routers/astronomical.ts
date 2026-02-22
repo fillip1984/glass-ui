@@ -13,7 +13,7 @@ export const astronomicalRouter = createTRPCRouter({
       }),
     )
     .query(async ({ input }) => {
-      return await fetchAstronomicalData(
+      return await fetchAstronomicalDetails(
         input.latitude,
         input.longitude,
         input.date,
@@ -21,7 +21,7 @@ export const astronomicalRouter = createTRPCRouter({
     }),
 });
 
-export interface AstronomicalData {
+export interface AstronomicalDetails {
   sunrise: Date;
   sunset: Date;
   firstLight: Date;
@@ -53,11 +53,11 @@ interface SunriseSunsetResponse {
 /**
  * Returns sunrise and sunset times for a given location and date. Uses https://sunrise-sunset.org/api
  */
-export const fetchAstronomicalData = async (
+export const fetchAstronomicalDetails = async (
   latitude: number,
   longitude: number,
   date: Date,
-): Promise<AstronomicalData> => {
+): Promise<AstronomicalDetails> => {
   const response = await fetch(
     `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=${format(
       date,
@@ -65,11 +65,7 @@ export const fetchAstronomicalData = async (
     )}&formatted=0`,
   );
   if (!response.ok) {
-    // console.warn(
-    //   "Error occurred while fetching sunrise/sunset info, info is nice to have so not throwing an error",
-    // );
-    // return null;
-    throw new Error("Failed to retrieve astronomical data");
+    throw new Error("Failed to retrieve astronomical details");
   }
   const data = (await response.json()) as SunriseSunsetResponse;
 

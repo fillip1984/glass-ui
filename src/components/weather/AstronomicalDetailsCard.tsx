@@ -2,9 +2,9 @@
 
 import { format } from "date-fns/format";
 
-import { fetchAstronomicalData } from "~/server/api/routers/astronomical";
+import { fetchAstronomicalDetails } from "~/server/api/routers/astronomical";
 
-export default async function DaylightWidget({
+export default async function AstronomicalDetailsCard({
   latitude,
   longitude,
   date,
@@ -13,7 +13,7 @@ export default async function DaylightWidget({
   longitude: number;
   date: Date;
 }) {
-  const astronomicalData = await fetchAstronomicalData(
+  const astronomicalDetails = await fetchAstronomicalDetails(
     latitude,
     longitude,
     date,
@@ -21,27 +21,27 @@ export default async function DaylightWidget({
 
   return (
     <div className="glass relative rounded-lg p-6">
-      <h2 className="mb-4 text-2xl font-bold">Daylight Widget</h2>
+      <h2 className="mb-4 text-2xl font-bold">Astronomical Details</h2>
 
       <div className="space-y-3">
         <div className="flex justify-between">
           <span>Sunrise</span>
           <span className="font-semibold">
-            {format(astronomicalData.sunrise, "h:mm a")}
+            {format(astronomicalDetails.sunrise, "h:mm a")}
           </span>
         </div>
         <div className="flex justify-between">
           <span>Sunset</span>
           <span className="font-semibold">
-            {format(astronomicalData.sunset, "h:mm a")}
+            {format(astronomicalDetails.sunset, "h:mm a")}
           </span>
         </div>
         <div className="flex justify-between">
           <span>Day length</span>
           <div className="flex flex-col items-end text-sm font-light">
-            <span>{astronomicalData.dayLength.hours} hrs</span>
-            <span>{astronomicalData.dayLength.minutes} mins</span>
-            <span>{astronomicalData.dayLength.seconds} secs</span>
+            <span>{astronomicalDetails.dayLength.hours} hrs</span>
+            <span>{astronomicalDetails.dayLength.minutes} mins</span>
+            <span>{astronomicalDetails.dayLength.seconds} secs</span>
           </div>
         </div>
       </div>

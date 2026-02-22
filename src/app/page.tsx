@@ -1,12 +1,12 @@
 import TodayTasks from "~/components/task/TodayTasks";
-import DaylightWidget from "~/components/weather/DaylightWidget";
-import WeatherDetails from "~/components/weather/WeatherDetails";
+import AstronomicalDetailsCard from "~/components/weather/AstronomicalDetailsCard";
+import WeatherDetailsCard from "~/components/weather/WeatherDetailsCard";
 
 export default function Home() {
   return (
     <div className="flex gap-2 p-2">
-      <WeatherDetails />
-      <DaylightWidget
+      <WeatherDetailsCard latitude={38.1876} longitude={-85.5639} />
+      <AstronomicalDetailsCard
         latitude={38.1876}
         longitude={-85.5639}
         date={new Date()}
