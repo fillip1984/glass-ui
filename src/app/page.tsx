@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 
 import TodayTasks from "~/components/task/TodayTasks";
-import AstronomicalDetailsCard from "~/components/weather/AstronomicalDetailsCard";
+import AstronomicalDetailsCard, {
+  AstronomicalDetailsSkeletonCard,
+} from "~/components/weather/AstronomicalDetailsCard";
 import WeatherDetailsCard from "~/components/weather/WeatherDetailsCard";
 
 export default function Home() {
@@ -22,13 +24,7 @@ export default function Home() {
         />
       </Suspense>
 
-      <Suspense
-        fallback={
-          <div className="glass rounded-lg p-6">
-            Loading astronomical details...
-          </div>
-        }
-      >
+      <Suspense fallback={<AstronomicalDetailsSkeletonCard />}>
         <AstronomicalDetailsCard
           latitude={testGPSCoordinates.latitude}
           longitude={testGPSCoordinates.longitude}

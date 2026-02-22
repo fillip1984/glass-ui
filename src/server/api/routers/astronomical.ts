@@ -51,7 +51,7 @@ export const fetchAstronomicalDetails = async (
   latitude: number,
   longitude: number,
 ): Promise<AstronomicalDetails> => {
-  // await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   // TODO: figure out if date was necessary. When passing it in NextJS wasn't happy and it looks to be optional anyway
   // const response = await fetch(
