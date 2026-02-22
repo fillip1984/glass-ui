@@ -20,10 +20,10 @@ export default async function WeatherDetailsCard({
             {weatherDetails.highTemperature}°F
           </span>
         </div>
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <span>Humidity</span>
           <span className="font-semibold">{weatherDetails.humidity}%</span>
-        </div>
+        </div> */}
         <div className="flex justify-between">
           <span>Wind Speed</span>
           <span className="font-semibold">{weatherDetails.windSpeed} mph</span>
