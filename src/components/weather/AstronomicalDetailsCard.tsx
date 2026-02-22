@@ -7,16 +7,13 @@ import { fetchAstronomicalDetails } from "~/server/api/routers/astronomical";
 export default async function AstronomicalDetailsCard({
   latitude,
   longitude,
-  date,
 }: {
   latitude: number;
   longitude: number;
-  date: Date;
 }) {
   const astronomicalDetails = await fetchAstronomicalDetails(
     latitude,
     longitude,
-    date,
   );
 
   return (

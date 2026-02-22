@@ -1,20 +1,36 @@
+import { format } from "date-fns";
+
 export interface WeatherDetails {
-  highTemperature: number;
-  lowTemperature: number;
-  precipitationChance: number;
-  //   humidity: number;
-  windSpeed: number;
-  shortDescription: string;
-  description: string;
+  dailyForecast: WeatherPeriodDetails[];
+  hourlyForecast: WeatherPeriodDetails[];
   location: {
     city: string;
     state: string;
   };
 }
 
+interface WeatherPeriodDetails {
+  number: number;
+  name: string;
+  startTime: Date;
+  endTime: Date;
+  temperature: number;
+  temperatureUnit: string;
+  precipitationChance: number;
+  windSpeed: number;
+  windDirection: string;
+  shortDescription: string;
+  description: string;
+
+  // only available on hourly forecast, not daily forecast
+  dewPoint?: number;
+  relativeHumidity?: number;
+}
+
 interface WeatherPointsResponse {
   properties: {
     forecast: string;
+    forecastHourly: string;
     relativeLocation: {
       properties: {
         city: string;
@@ -51,6 +67,12 @@ export const fetchWeatherDetails = async (
   latitude: number,
   longitude: number,
 ): Promise<WeatherDetails> => {
+  console.log(
+    `Fetching weather at: https://api.weather.gov/points/${latitude},${longitude}`,
+  );
+
+  // await new Promise((resolve) => setTimeout(resolve, 8000));
+
   // call points api to get forecast url
   const pointsResponse = await fetch(
     `https://api.weather.gov/points/${latitude},${longitude}`,
@@ -62,6 +84,32 @@ export const fetchWeatherDetails = async (
   }
   const pointsData = (await pointsResponse.json()) as WeatherPointsResponse;
 
+  // call hourly forecast api to get today's weather
+  const hourlyForecastResponse = await fetch(
+    pointsData.properties.forecastHourly,
+  );
+  if (!hourlyForecastResponse.ok) {
+    throw new Error(
+      "Failed to retrieve weather details (failed at hourly forecast API)",
+    );
+  }
+  const hourlyForecastData =
+    (await hourlyForecastResponse.json()) as WeatherForecastResponse;
+  const hourlyForecast: WeatherPeriodDetails[] =
+    hourlyForecastData.properties.periods.map((period) => ({
+      number: period.number,
+      name: format(new Date(period.startTime), "h a"), // format to just show hour and am/pm
+      startTime: new Date(period.startTime),
+      endTime: new Date(period.endTime),
+      temperature: period.temperature,
+      temperatureUnit: period.temperatureUnit,
+      precipitationChance: period.probabilityOfPrecipitation.value,
+      windSpeed: parseInt(period.windSpeed),
+      windDirection: period.windDirection,
+      shortDescription: period.shortForecast,
+      description: period.detailedForecast,
+    }));
+
   // call forecast api to get today's weather
   const forecastResponse = await fetch(pointsData.properties.forecast);
   if (!forecastResponse.ok) {
@@ -71,23 +119,28 @@ export const fetchWeatherDetails = async (
   }
   const forecastData =
     (await forecastResponse.json()) as WeatherForecastResponse;
-  const todayForecast = forecastData.properties.periods[0];
-  if (!todayForecast) {
-    throw new Error("Failed to retrieve weather details (no forecast data)");
-  }
-  return {
-    highTemperature: todayForecast.temperature,
-    lowTemperature: todayForecast.temperature,
-    precipitationChance: todayForecast.probabilityOfPrecipitation.value,
-    // humidity: todayForecast.relativeHumidity.value,
-    windSpeed: parseInt(todayForecast.windSpeed),
-    shortDescription: todayForecast.shortForecast,
-    description: todayForecast.detailedForecast,
+  const weatherDetails: WeatherDetails = {
+    dailyForecast: forecastData.properties.periods.map((period) => ({
+      number: period.number,
+      name: period.name,
+      startTime: new Date(period.startTime),
+      endTime: new Date(period.endTime),
+      temperature: period.temperature,
+      temperatureUnit: period.temperatureUnit,
+      precipitationChance: period.probabilityOfPrecipitation.value,
+      windSpeed: parseInt(period.windSpeed),
+      windDirection: period.windDirection,
+      shortDescription: period.shortForecast,
+      description: period.detailedForecast,
+    })),
+    hourlyForecast,
     location: {
       city: pointsData.properties.relativeLocation.properties.city,
       state: pointsData.properties.relativeLocation.properties.state,
     },
   };
+  console.log("Weather details fetched");
+  return weatherDetails;
 };
 
 /*

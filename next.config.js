@@ -6,6 +6,8 @@ const jiti = createJiti(import.meta.url);
 await jiti.import("./src/env");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  cacheComponents: true,
+};
 
 export default config;

@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import z from "zod/v4";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -9,15 +8,10 @@ export const astronomicalRouter = createTRPCRouter({
       z.object({
         latitude: z.number(),
         longitude: z.number(),
-        date: z.date(),
       }),
     )
     .query(async ({ input }) => {
-      return await fetchAstronomicalDetails(
-        input.latitude,
-        input.longitude,
-        input.date,
-      );
+      return await fetchAstronomicalDetails(input.latitude, input.longitude);
     }),
 });
 
@@ -56,13 +50,18 @@ interface SunriseSunsetResponse {
 export const fetchAstronomicalDetails = async (
   latitude: number,
   longitude: number,
-  date: Date,
 ): Promise<AstronomicalDetails> => {
+  // await new Promise(resolve => setTimeout(resolve, 5000));
+
+  // TODO: figure out if date was necessary. When passing it in NextJS wasn't happy and it looks to be optional anyway
+  // const response = await fetch(
+  //   `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=${format(
+  //     date,
+  //     "yyyy-MM-dd",
+  //   )}&formatted=0`,
+  // );
   const response = await fetch(
-    `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=${format(
-      date,
-      "yyyy-MM-dd",
-    )}&formatted=0`,
+    `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`,
   );
   if (!response.ok) {
     throw new Error("Failed to retrieve astronomical details");
