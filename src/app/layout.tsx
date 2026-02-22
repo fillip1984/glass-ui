@@ -43,13 +43,13 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <div
-            className={`flex h-screen bg-cover bg-fixed bg-center`}
+            className={`flex h-screen overflow-hidden bg-cover bg-fixed bg-center`}
             style={{
               backgroundImage: `url('${wallpaper}')`,
             }}
           >
             <SideNav />
-            <main>{children}</main>
+            <main className="flex grow">{children}</main>
           </div>
         </TRPCReactProvider>
       </body>

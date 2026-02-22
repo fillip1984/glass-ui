@@ -11,18 +11,23 @@ export default function Home() {
     latitude: 38.2542,
     longitude: -85.7507,
   };
+
   return (
-    <div className="flex gap-2 p-2">
-      <Suspense
-        fallback={
-          <div className="glass rounded-lg p-6">Loading weather details...</div>
-        }
-      >
-        <WeatherDetailsCard
-          latitude={testGPSCoordinates.latitude}
-          longitude={testGPSCoordinates.longitude}
-        />
-      </Suspense>
+    <div className="grid grow grid-cols-4 grid-rows-2 gap-2 p-2">
+      <div className="col-span-3 grid">
+        <Suspense
+          fallback={
+            <div className="glass rounded-lg p-6">
+              Loading weather details...
+            </div>
+          }
+        >
+          <WeatherDetailsCard
+            latitude={testGPSCoordinates.latitude}
+            longitude={testGPSCoordinates.longitude}
+          />
+        </Suspense>
+      </div>
 
       <Suspense fallback={<AstronomicalDetailsSkeletonCard />}>
         <AstronomicalDetailsCard
@@ -30,7 +35,10 @@ export default function Home() {
           longitude={testGPSCoordinates.longitude}
         />
       </Suspense>
-      <TodayTasks />
+
+      <div className="col-span-4">
+        <TodayTasks />
+      </div>
     </div>
   );
 }
