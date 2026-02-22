@@ -49,7 +49,7 @@ export default function RootLayout({
             }}
           >
             <SideNav />
-            <main className="flex grow">{children}</main>
+            <main className="flex grow overflow-hidden">{children}</main>
           </div>
         </TRPCReactProvider>
       </body>

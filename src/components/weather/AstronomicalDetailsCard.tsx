@@ -18,7 +18,7 @@ export default async function AstronomicalDetailsCard({
   );
 
   return (
-    <div className="glass-card relative rounded-lg p-6">
+    <div className="glass-card rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Astronomical Details</h2>
 
       <div className="space-y-3">
@@ -43,7 +43,7 @@ export default async function AstronomicalDetailsCard({
           </div>
         </div>
       </div>
-      <div className="absolute right-2 bottom-3 text-xs">
+      <div className="mt-2 flex justify-end text-xs">
         <a
           href="https://sunrise-sunset.org/"
           target="_blank"

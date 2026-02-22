@@ -13,8 +13,8 @@ export default function Home() {
   };
 
   return (
-    <div className="grid grow grid-cols-4 grid-rows-2 gap-2 p-2">
-      <div className="col-span-3 grid">
+    <div className="grid grow gap-2 overflow-y-auto p-2 pr-3 lg:grid-cols-4">
+      <div className="grid lg:col-span-3">
         <Suspense
           fallback={
             <div className="glass-card rounded-lg p-6">
@@ -36,7 +36,7 @@ export default function Home() {
         />
       </Suspense>
 
-      <div className="col-span-4">
+      <div className="grid lg:col-span-4">
         <TodayTasks />
       </div>
     </div>
