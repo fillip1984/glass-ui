@@ -1,6 +1,6 @@
 export default function TodayTasks() {
   return (
-    <div className="glass rounded-lg p-6">
+    <div className="glass-card rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Today Tasks</h2>
       <ul className="mt-4 space-y-2">
         <li className="flex items-center">

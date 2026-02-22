@@ -17,7 +17,7 @@ export default function Home() {
       <div className="col-span-3 grid">
         <Suspense
           fallback={
-            <div className="glass rounded-lg p-6">
+            <div className="glass-card rounded-lg p-6">
               Loading weather details...
             </div>
           }

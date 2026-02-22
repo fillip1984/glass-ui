@@ -12,7 +12,7 @@ export default async function WeatherDetailsCard({
   const weatherDetailsForNow = weatherDetails.dailyForecast[0];
 
   return (
-    <div className="glass overflow-hidden rounded-lg p-6">
+    <div className="glass-card overflow-hidden rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Weather Details</h2>
       <h5 className="mb-2 text-lg font-bold">
         {weatherDetails.location.city}, {weatherDetails.location.state}

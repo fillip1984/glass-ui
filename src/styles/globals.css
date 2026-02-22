@@ -131,7 +131,7 @@
   }
 }
 @layer utilities {
-  .glass {
-    @apply border border-white/10 bg-white/10 shadow-lg backdrop-blur-xs dark:border-black/10 dark:bg-black/10;
+  .glass-card {
+    @apply border border-white/10 border-t-white/40 bg-white/10 shadow-lg backdrop-blur-xs dark:border-black/10 dark:bg-black/10;
   }
 }

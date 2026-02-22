@@ -7,7 +7,7 @@ export default function SideNav() {
     { name: "Contact", icon: <FaPhone />, href: "/contact" },
   ];
   return (
-    <nav className="glass m-2 min-w-50 rounded-xl">
+    <nav className="glass-card m-2 min-w-50 rounded-xl">
       <ul className="flex flex-col gap-2 p-4 text-xl font-bold">
         {menuItems.map((item) => (
           <li key={item.href} className="relative">

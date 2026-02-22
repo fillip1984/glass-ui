@@ -18,7 +18,7 @@ export default async function AstronomicalDetailsCard({
   );
 
   return (
-    <div className="glass relative rounded-lg p-6">
+    <div className="glass-card relative rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Astronomical Details</h2>
 
       <div className="space-y-3">
@@ -58,7 +58,7 @@ export default async function AstronomicalDetailsCard({
 
 export function AstronomicalDetailsSkeletonCard() {
   return (
-    <div className="glass relative rounded-lg p-6">
+    <div className="glass-card relative rounded-lg p-6">
       <h2 className="mb-4 text-2xl font-bold">Astronomical Details</h2>
 
       <div className="space-y-3">
